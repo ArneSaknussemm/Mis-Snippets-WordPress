@@ -1,0 +1,27 @@
+<?php
+add_filter( "theme_mod_themefarmer_home_brands", 'altera_marcas' );
+function altera_marcas($default)
+{
+	$default[5] = array(
+		'image' => 'https://www.encendidototal.cl/sitio-web-pyme/wp-content/uploads/2021/03/encendido-total-portada-marcas-flosser-220x110-1.png',
+    	'brand_link' => '#'
+	);
+	$default[6] = array(
+		'image' => 'https://www.encendidototal.cl/sitio-web-pyme/wp-content/uploads/2021/03/encendido-total-portada-marcas-delco-remy-220x110-1.png',
+    	'brand_link' => '#'
+	);
+	$default[7] = array(
+		'image' => 'https://www.encendidototal.cl/sitio-web-pyme/wp-content/uploads/2021/03/encendido-total-portada-marcas-bzm-220x110-1.png',
+    	'brand_link' => '#'
+	);
+	$default[8] = array(
+		'image' => 'https://www.encendidototal.cl/sitio-web-pyme/wp-content/uploads/2021/03/encendido-total-portada-marcas-bosch-220x110-1.png',
+    	'brand_link' => '#'
+	);
+	$default[9] = array(
+		'image' => 'https://www.encendidototal.cl/sitio-web-pyme/wp-content/uploads/2021/03/encendido-total-portada-marcas-monark-220x110-tinified.png',
+    	'brand_link' => '#'
+	);
+	return $default;
+}
+

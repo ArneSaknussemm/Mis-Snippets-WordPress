@@ -1,0 +1,28 @@
+/*---CARRITO COTIZADOR----*/
+.cart td:nth-child(6),
+.cart td:nth-child(4),
+.cart th:nth-child(4),
+.cart th:nth-child(6),
+.cart_totals .shop_table,
+.cart_totals h2,
+/*Colgante*/
+.woocommerce-mini-cart__total,
+.header-cart-top-link-right,
+/*Checkout*/
+.checkout th:nth-child(2),
+.checkout tfoot,
+/*Comprobante de Pedido*/
+.woocommerce-order-received tfoot
+{
+	display:none !important;
+}
+.woocommerce .quantity button.tf-qty-button
+{
+	/*float:none;*/
+}
+/*Número de pedido destacado en Comprobatne de Pedido*/
+.woocommerce ul.order_details li.order strong
+{
+	font-size:24px;
+}
+/*--FIN CARRITO COTIZADOR--*/
