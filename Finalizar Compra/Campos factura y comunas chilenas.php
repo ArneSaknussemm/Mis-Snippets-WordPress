@@ -2,15 +2,15 @@
 add_filter( 'woocommerce_default_address_fields', 'ordena_datos_cliente' );
 function ordena_datos_cliente( $fields)
 {
-
+	
 	$fields['address_1']['priority'] = 60;
 	$fields['address_1']['class'] = array('form-row-wide', 'address-field');
-    $fields['state']['priority'] = 70;
-    $fields['state']['class'] = array('form-row-first', 'address-field');
-    $fields['city']['priority'] = 80;
-    $fields['city']['class'] = array('form-row-last', 'address-field');
-
-    return $fields;
+	$fields['state']['priority'] = 70;
+	$fields['state']['class'] = array('form-row-first', 'address-field');
+	$fields['city']['priority'] = 80;
+	$fields['city']['class'] = array('form-row-last', 'address-field');
+	
+	return $fields;
 }
 
 //Alinear campos email y teléfono
@@ -21,96 +21,96 @@ function diagramacion_campos_checkout( $fields )
 	unset($fields['shipping']['shipping_postcode']);
 	unset($fields['billing']['billing_company']);
 	unset($fields['billing']['billing_address_2']);
-
+	
 	$fields['billing']['billing_phone']['class'] = array('form-row-first');
-    $fields['billing']['billing_phone']['priority'] = 30;
+	$fields['billing']['billing_phone']['priority'] = 30;
 	$fields['billing']['billing_email']['class'] = array('form-row-last');
 	$fields['billing']['billing_email']['label'] = 'Email';
 	$fields['billing']['billing_email']['priority'] = 40;
-
+	
 	$fields['billing']['billing_country']['priority'] = 50;
 	$fields['billing']['billing_country']['class'] = array('form-row-wide', 'address-field');
-
-    return $fields;
+	
+	return $fields;
 }
 
 /**
- * Add the field to the checkout
- */
+* Add the field to the checkout
+*/
 add_action( 'woocommerce_after_checkout_billing_form', 'my_custom_checkout_field' );
 function my_custom_checkout_field( $checkout )
 {
-    echo '<div id="seccion_opcion_boleta_o_factura"><h3>' . __('Documento') . '</h3>';
-		echo '<div id="externo_radio_opcion_boleta_o_factura">';
-			woocommerce_form_field( 'radio_opcion_boleta_o_factura', array(
-				'type'          => 'radio',
-				'class'         => array('my-field-class form-row-wide'),
-				'label'         => __('Seleccione boleta o factura'),
-				'options'   => array( 'boleta' => 'Boleta', 'factura' =>'Factura', ),
-				'default'   => 'boleta',
-				'required'    => true,
-				), $checkout->get_value( 'radio_opcion_boleta_o_factura' ) );
-		echo '</div>';
-
-		echo('<div id="campos_opcion_factura">');
-			woocommerce_form_field( 'razon_social_factura', array(
-				'type'          => 'text',
-				'class'         => array('my-field-class form-row-wide'),
-				'label'         => __('Razón social'),
-				'required'    => true,
-				), $checkout->get_value( 'razon_social_factura' ) );
-			woocommerce_form_field( 'rut_factura', array(
-				'type'          => 'text',
-				'class'         => array('my-field-class form-row-first'),
-				'label'         => __('RUT'),
-				'required'    => true,
-				), $checkout->get_value( 'rut_factura' ) );
-			woocommerce_form_field( 'giro_factura', array(
-				'type'          => 'text',
-				'class'         => array('my-field-class form-row-last'),
-				'label'         => __('Giro'),
-				'required'    => true,
-				), $checkout->get_value( 'giro_factura' ) );
-			woocommerce_form_field( 'direccion_factura', array(
-				'type'          => 'text',
-				'class'         => array('my-field-class form-row-wide'),
-				'label'         => __('Dirección de facturación'),
-				'required'    => true,
-				), $checkout->get_value( 'direccion_factura' ) );
-			woocommerce_form_field( 'comuna_factura', array(
-				'type'          => 'text',
-				'class'         => array('my-field-class form-row-first'),
-				'label'         => __('Comuna'),
-				'required'    => true,
-				), $checkout->get_value( 'comuna_factura' ) );
-			woocommerce_form_field( 'ciudad_factura', array(
-				'type'          => 'text',
-				'class'         => array('my-field-class form-row-last'),
-				'label'         => __('Ciudad'),
-				'required'    => true,
-				), $checkout->get_value( 'ciudad_factura' ) );
-		echo '</div>';
+	echo '<div id="seccion_opcion_boleta_o_factura"><h3>' . __('Documento') . '</h3>';
+	echo '<div id="externo_radio_opcion_boleta_o_factura">';
+	woocommerce_form_field( 'radio_opcion_boleta_o_factura', array(
+		'type'          => 'radio',
+		'class'         => array('my-field-class form-row-wide'),
+		'label'         => __('Seleccione boleta o factura'),
+		'options'   => array( 'boleta' => 'Boleta', 'factura' =>'Factura', ),
+		'default'   => 'boleta',
+		'required'    => true,
+	), $checkout->get_value( 'radio_opcion_boleta_o_factura' ) );
+	echo '</div>';
+	
+	echo('<div id="campos_opcion_factura">');
+	woocommerce_form_field( 'razon_social_factura', array(
+		'type'          => 'text',
+		'class'         => array('my-field-class form-row-wide'),
+		'label'         => __('Razón social'),
+		'required'    => true,
+	), $checkout->get_value( 'razon_social_factura' ) );
+	woocommerce_form_field( 'rut_factura', array(
+		'type'          => 'text',
+		'class'         => array('my-field-class form-row-first'),
+		'label'         => __('RUT'),
+		'required'    => true,
+	), $checkout->get_value( 'rut_factura' ) );
+	woocommerce_form_field( 'giro_factura', array(
+		'type'          => 'text',
+		'class'         => array('my-field-class form-row-last'),
+		'label'         => __('Giro'),
+		'required'    => true,
+	), $checkout->get_value( 'giro_factura' ) );
+	woocommerce_form_field( 'direccion_factura', array(
+		'type'          => 'text',
+		'class'         => array('my-field-class form-row-wide'),
+		'label'         => __('Dirección de facturación'),
+		'required'    => true,
+	), $checkout->get_value( 'direccion_factura' ) );
+	woocommerce_form_field( 'comuna_factura', array(
+		'type'          => 'text',
+		'class'         => array('my-field-class form-row-first'),
+		'label'         => __('Comuna'),
+		'required'    => true,
+	), $checkout->get_value( 'comuna_factura' ) );
+	woocommerce_form_field( 'ciudad_factura', array(
+		'type'          => 'text',
+		'class'         => array('my-field-class form-row-last'),
+		'label'         => __('Ciudad'),
+		'required'    => true,
+	), $checkout->get_value( 'ciudad_factura' ) );
+	echo '</div>';
 	echo '</div>';
 }
 /**
- * Process the checkout
- */
+* Process the checkout
+*/
 add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
 function my_custom_checkout_field_process($data)
 {
 	// Check if set, if its not set add an error.
-  if( $_POST['radio_opcion_boleta_o_factura']!='boleta'&&!($_POST['razon_social_factura'] || $_POST['rut_factura']|| $_POST['giro_factura']))
-		wc_add_notice( __( 'Por favor, llene los datos de facturación o seleccione "Boleta"' ), 'error' );
-  return $data;
+	if( $_POST['radio_opcion_boleta_o_factura']!='boleta'&&!($_POST['razon_social_factura'] || $_POST['rut_factura']|| $_POST['giro_factura']))
+	wc_add_notice( __( 'Por favor, llene los datos de facturación o seleccione "Boleta"' ), 'error' );
+	return $data;
 }
 /**
- * Update the order meta with field value
- */
+* Update the order meta with field value
+*/
 add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
 function my_custom_checkout_field_update_order_meta( $order_id )
 {
 	update_post_meta( $order_id, 'Documento', sanitize_text_field( $_POST['radio_opcion_boleta_o_factura'] ) );
-
+	
 	if ( ! empty( $_POST['razon_social_factura'] ) ) update_post_meta( $order_id, 'Razón social', sanitize_text_field( $_POST['razon_social_factura'] ) );
 	if ( ! empty( $_POST['rut_factura'] ) ) update_post_meta( $order_id, 'RUT', sanitize_text_field( $_POST['rut_factura'] ) );
 	if ( ! empty( $_POST['giro_factura'] ) ) update_post_meta( $order_id, 'Giro', sanitize_text_field( $_POST['giro_factura'] ) );
@@ -119,8 +119,8 @@ function my_custom_checkout_field_update_order_meta( $order_id )
 	if ( ! empty( $_POST['ciudad_factura'] ) ) update_post_meta( $order_id, 'Ciudad de facturación', sanitize_text_field( $_POST['ciudad_factura'] ) );
 }
 /**
- * Display field value on the order edit page
- */
+* Display field value on the order edit page
+*/
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 function my_custom_checkout_field_display_admin_order_meta($order)
 {
@@ -137,31 +137,31 @@ function my_custom_checkout_field_display_admin_order_meta($order)
 add_action( 'wp_footer', 'jquery_opcion_factura');
 function jquery_opcion_factura()
 {
-  ?>
+	?>
 	<script type="text/javascript">
-		jQuery(document).ready(function($)
+	jQuery(document).ready(function($)
+	{
+		var muestra_o_oculta = function ()
 		{
-			var muestra_o_oculta = function ()
+			if($('#radio_opcion_boleta_o_factura_factura').is(":checked"))
 			{
-				if($('#radio_opcion_boleta_o_factura_factura').is(":checked"))
-				{
 				$('#campos_opcion_factura').show();
 				console.log('factura');
-				}
-				else
-				{
-					$('#campos_opcion_factura').hide();
-					console.log('boleta');
-				}
 			}
-			muestra_o_oculta();
-			$('input:radio[name="radio_opcion_boleta_o_factura"]').change(function()
+			else
 			{
-				muestra_o_oculta();
-			});
+				$('#campos_opcion_factura').hide();
+				console.log('boleta');
+			}
+		}
+		muestra_o_oculta();
+		$('input:radio[name="radio_opcion_boleta_o_factura"]').change(function()
+		{
+			muestra_o_oculta();
 		});
+	});
 	</script>
-  <?php
+	<?php
 }
 
 // Cambia el nombre del dato state a comuna
@@ -174,353 +174,354 @@ function reemplaza_state_por_comuna($locale)
 //Agrega las comunas al listado de WooComerce
 add_filter('woocommerce_states', 'comunas_de_chile');
 function comunas_de_chile($states) {
-	$states['CL'] = array(
-		'CL100' => __('Algarrobo', 'woocommerce'),
-		'CL101' => __('Alhué', 'woocommerce'),
-		'CL102' => __('Alto Biobío', 'woocommerce'),
-		'CL103' => __('Alto del Carmen', 'woocommerce'),
-		'CL104' => __('Alto Hospicio', 'woocommerce'),
-		'CL105' => __('Ancud', 'woocommerce'),
-		'CL106' => __('Andacollo', 'woocommerce'),
-		'CL107' => __('Angol', 'woocommerce'),
-		'CL108' => __('Antártica', 'woocommerce'),
-		'CL109' => __('Antofagasta', 'woocommerce'),
-		'CL110' => __('Antuco', 'woocommerce'),
-		'CL111' => __('Arauco', 'woocommerce'),
-		'CL112' => __('Arica', 'woocommerce'),
-		'CL113' => __('Aysén', 'woocommerce'),
-		'CL114' => __('Buin', 'woocommerce'),
-		'CL115' => __('Bulnes', 'woocommerce'),
-		'CL116' => __('Cabildo', 'woocommerce'),
-		'CL117' => __('Cabo de Hornos', 'woocommerce'),
-		'CL118' => __('Cabrero', 'woocommerce'),
-		'CL119' => __('Calama', 'woocommerce'),
-		'CL120' => __('Calbuco', 'woocommerce'),
-		'CL121' => __('Caldera', 'woocommerce'),
-		'CL122' => __('Calera de Tango', 'woocommerce'),
-		'CL123' => __('Calle Larga', 'woocommerce'),
-		'CL124' => __('Camarones', 'woocommerce'),
-		'CL125' => __('Camiña', 'woocommerce'),
-		'CL126' => __('Canela', 'woocommerce'),
-		'CL127' => __('Cañete', 'woocommerce'),
-		'CL128' => __('Carahue', 'woocommerce'),
-		'CL129' => __('Cartagena', 'woocommerce'),
-		'CL130' => __('Casablanca', 'woocommerce'),
-		'CL131' => __('Castro', 'woocommerce'),
-		'CL132' => __('Catemu', 'woocommerce'),
-		'CL133' => __('Cauquenes', 'woocommerce'),
-		'CL134' => __('Cerrillos', 'woocommerce'),
-		'CL135' => __('Cerro Navia', 'woocommerce'),
-		'CL136' => __('Chaitén', 'woocommerce'),
-		'CL137' => __('Chanco', 'woocommerce'),
-		'CL138' => __('Chañaral', 'woocommerce'),
-		'CL139' => __('Chépica', 'woocommerce'),
-		'CL140' => __('Chiguayante', 'woocommerce'),
-		'CL141' => __('Chile Chico', 'woocommerce'),
-		'CL142' => __('Chillán', 'woocommerce'),
-		'CL143' => __('Chillán Viejo', 'woocommerce'),
-		'CL144' => __('Chimbarongo', 'woocommerce'),
-		'CL145' => __('Cholchol', 'woocommerce'),
-		'CL146' => __('Chonchi', 'woocommerce'),
-		'CL147' => __('Cisnes', 'woocommerce'),
-		'CL148' => __('Cobquecura', 'woocommerce'),
-		'CL149' => __('Cochamó', 'woocommerce'),
-		'CL150' => __('Cochrane', 'woocommerce'),
-		'CL151' => __('Codegua', 'woocommerce'),
-		'CL152' => __('Coelemu', 'woocommerce'),
-		'CL153' => __('Coihueco', 'woocommerce'),
-		'CL154' => __('Coinco', 'woocommerce'),
-		'CL155' => __('Colbún', 'woocommerce'),
-		'CL156' => __('Colchane', 'woocommerce'),
-		'CL157' => __('Colina', 'woocommerce'),
-		'CL158' => __('Collipulli', 'woocommerce'),
-		'CL159' => __('Coltauco', 'woocommerce'),
-		'CL160' => __('Combarbalá', 'woocommerce'),
-		'CL161' => __('Concepción', 'woocommerce'),
-		'CL162' => __('Conchalí', 'woocommerce'),
-		'CL163' => __('Concón', 'woocommerce'),
-		'CL164' => __('Constitución', 'woocommerce'),
-		'CL165' => __('Contulmo', 'woocommerce'),
-		'CL166' => __('Copiapó', 'woocommerce'),
-		'CL167' => __('Coquimbo', 'woocommerce'),
-		'CL168' => __('Coronel', 'woocommerce'),
-		'CL169' => __('Corral', 'woocommerce'),
-		'CL170' => __('Coyhaique', 'woocommerce'),
-		'CL171' => __('Cunco', 'woocommerce'),
-		'CL172' => __('Curacautín', 'woocommerce'),
-		'CL173' => __('Curacaví', 'woocommerce'),
-		'CL174' => __('Curaco de Vélez', 'woocommerce'),
-		'CL175' => __('Curanilahue', 'woocommerce'),
-		'CL176' => __('Curarrehue', 'woocommerce'),
-		'CL177' => __('Curepto', 'woocommerce'),
-		'CL178' => __('Curicó', 'woocommerce'),
-		'CL179' => __('Dalcahue', 'woocommerce'),
-		'CL180' => __('Diego de Almagro', 'woocommerce'),
-		'CL181' => __('Doñihue', 'woocommerce'),
-		'CL182' => __('El Bosque', 'woocommerce'),
-		'CL183' => __('El Carmen', 'woocommerce'),
-		'CL184' => __('El Monte', 'woocommerce'),
-		'CL185' => __('El Quisco', 'woocommerce'),
-		'CL186' => __('El Tabo', 'woocommerce'),
-		'CL187' => __('Empedrado', 'woocommerce'),
-		'CL188' => __('Ercilla', 'woocommerce'),
-		'CL189' => __('Estación Central', 'woocommerce'),
-		'CL190' => __('Florida', 'woocommerce'),
-		'CL191' => __('Freire', 'woocommerce'),
-		'CL192' => __('Freirina', 'woocommerce'),
-		'CL193' => __('Fresia', 'woocommerce'),
-		'CL194' => __('Frutillar', 'woocommerce'),
-		'CL195' => __('Futaleufú', 'woocommerce'),
-		'CL196' => __('Futrono', 'woocommerce'),
-		'CL197' => __('Galvarino', 'woocommerce'),
-		'CL198' => __('General Lagos', 'woocommerce'),
-		'CL199' => __('Gorbea', 'woocommerce'),
-		'CL200' => __('Graneros', 'woocommerce'),
-		'CL201' => __('Guaitecas', 'woocommerce'),
-		'CL202' => __('Hijuelas', 'woocommerce'),
-		'CL203' => __('Hualaihué', 'woocommerce'),
-		'CL204' => __('Hualañé', 'woocommerce'),
-		'CL205' => __('Hualpén', 'woocommerce'),
-		'CL206' => __('Hualqui', 'woocommerce'),
-		'CL207' => __('Huara', 'woocommerce'),
-		'CL208' => __('Huasco', 'woocommerce'),
-		'CL209' => __('Huechuraba', 'woocommerce'),
-		'CL210' => __('Illapel', 'woocommerce'),
-		'CL211' => __('Independencia', 'woocommerce'),
-		'CL212' => __('Iquique', 'woocommerce'),
-		'CL213' => __('Isla de Maipo', 'woocommerce'),
-		'CL214' => __('Isla de Pascua', 'woocommerce'),
-		'CL215' => __('Juan Fernández', 'woocommerce'),
-		'CL216' => __('La Calera', 'woocommerce'),
-		'CL217' => __('La Cisterna', 'woocommerce'),
-		'CL218' => __('La Cruz', 'woocommerce'),
-		'CL219' => __('La Estrella', 'woocommerce'),
-		'CL220' => __('La Florida', 'woocommerce'),
-		'CL221' => __('La Granja', 'woocommerce'),
-		'CL222' => __('La Higuera', 'woocommerce'),
-		'CL223' => __('La Ligua', 'woocommerce'),
-		'CL224' => __('La Pintana', 'woocommerce'),
-		'CL225' => __('La Reina', 'woocommerce'),
-		'CL226' => __('La Serena', 'woocommerce'),
-		'CL227' => __('La Unión', 'woocommerce'),
-		'CL228' => __('Lago Ranco', 'woocommerce'),
-		'CL229' => __('Lago Verde', 'woocommerce'),
-		'CL230' => __('Laguna Blanca', 'woocommerce'),
-		'CL231' => __('Laja', 'woocommerce'),
-		'CL232' => __('Lampa', 'woocommerce'),
-		'CL233' => __('Lanco', 'woocommerce'),
-		'CL234' => __('Las Cabras', 'woocommerce'),
-		'CL235' => __('Las Condes', 'woocommerce'),
-		'CL236' => __('Lautaro', 'woocommerce'),
-		'CL237' => __('Lebu', 'woocommerce'),
-		'CL238' => __('Licantén', 'woocommerce'),
-		'CL239' => __('Limache', 'woocommerce'),
-		'CL240' => __('Linares', 'woocommerce'),
-		'CL241' => __('Litueche', 'woocommerce'),
-		'CL242' => __('Llanquihue', 'woocommerce'),
-		'CL243' => __('Llay Llay', 'woocommerce'),
-		'CL244' => __('Lo Barnechea', 'woocommerce'),
-		'CL245' => __('Lo Espejo', 'woocommerce'),
-		'CL246' => __('Lo Prado', 'woocommerce'),
-		'CL247' => __('Lolol', 'woocommerce'),
-		'CL248' => __('Loncoche', 'woocommerce'),
-		'CL249' => __('Longaví', 'woocommerce'),
-		'CL250' => __('Lonquimay', 'woocommerce'),
-		'CL251' => __('Los Álamos', 'woocommerce'),
-		'CL252' => __('Los Andes', 'woocommerce'),
-		'CL253' => __('Los Ángeles', 'woocommerce'),
-		'CL254' => __('Los Lagos', 'woocommerce'),
-		'CL255' => __('Los Muermos', 'woocommerce'),
-		'CL256' => __('Los Sauces', 'woocommerce'),
-		'CL257' => __('Los Vilos', 'woocommerce'),
-		'CL258' => __('Lota', 'woocommerce'),
-		'CL259' => __('Lumaco', 'woocommerce'),
-		'CL260' => __('Machalí', 'woocommerce'),
-		'CL261' => __('Macul', 'woocommerce'),
-		'CL262' => __('Máfil', 'woocommerce'),
-		'CL263' => __('Maipú', 'woocommerce'),
-		'CL264' => __('Malloa', 'woocommerce'),
-		'CL265' => __('Marchihue', 'woocommerce'),
-		'CL266' => __('María Elena', 'woocommerce'),
-		'CL267' => __('María Pinto', 'woocommerce'),
-		'CL268' => __('Mariquina', 'woocommerce'),
-		'CL269' => __('Maule', 'woocommerce'),
-		'CL270' => __('Maullín', 'woocommerce'),
-		'CL271' => __('Mejillones', 'woocommerce'),
-		'CL272' => __('Melipeuco', 'woocommerce'),
-		'CL273' => __('Melipilla', 'woocommerce'),
-		'CL274' => __('Molina', 'woocommerce'),
-		'CL275' => __('Monte Patria', 'woocommerce'),
-		'CL276' => __('Mostazal', 'woocommerce'),
-		'CL277' => __('Mulchén', 'woocommerce'),
-		'CL278' => __('Nacimiento', 'woocommerce'),
-		'CL279' => __('Nancagua', 'woocommerce'),
-		'CL280' => __('Natales', 'woocommerce'),
-		'CL281' => __('Navidad', 'woocommerce'),
-		'CL282' => __('Negrete', 'woocommerce'),
-		'CL283' => __('Ninhue', 'woocommerce'),
-		'CL284' => __('Nogales', 'woocommerce'),
-		'CL285' => __('Nueva Imperial', 'woocommerce'),
-		'CL286' => __('Ñiquén', 'woocommerce'),
-		'CL287' => __('Ñuñoa', 'woocommerce'),
-		'CL288' => __('O\'Higgins', 'woocommerce'),
-		'CL289' => __('Olivar', 'woocommerce'),
-		'CL290' => __('Ollagüe', 'woocommerce'),
-		'CL291' => __('Olmué', 'woocommerce'),
-		'CL292' => __('Osorno', 'woocommerce'),
-		'CL293' => __('Ovalle', 'woocommerce'),
-		'CL294' => __('Padre Hurtado', 'woocommerce'),
-		'CL295' => __('Padre las Casas', 'woocommerce'),
-		'CL296' => __('Paihuano', 'woocommerce'),
-		'CL297' => __('Paillaco', 'woocommerce'),
-		'CL298' => __('Paine', 'woocommerce'),
-		'CL299' => __('Palena', 'woocommerce'),
-		'CL300' => __('Palmilla', 'woocommerce'),
-		'CL301' => __('Panguipulli', 'woocommerce'),
-		'CL302' => __('Panquehue', 'woocommerce'),
-		'CL303' => __('Papudo', 'woocommerce'),
-		'CL304' => __('Paredones', 'woocommerce'),
-		'CL305' => __('Parral', 'woocommerce'),
-		'CL306' => __('Pedro Aguirre Cerda', 'woocommerce'),
-		'CL307' => __('Pelarco', 'woocommerce'),
-		'CL308' => __('Pelluhue', 'woocommerce'),
-		'CL309' => __('Pemuco', 'woocommerce'),
-		'CL310' => __('Pencahue', 'woocommerce'),
-		'CL311' => __('Penco', 'woocommerce'),
-		'CL312' => __('Peñaflor', 'woocommerce'),
-		'CL313' => __('Peñalolén', 'woocommerce'),
-		'CL314' => __('Peralillo', 'woocommerce'),
-		'CL315' => __('Perquenco', 'woocommerce'),
-		'CL316' => __('Petorca', 'woocommerce'),
-		'CL317' => __('Peumo', 'woocommerce'),
-		'CL318' => __('Pica', 'woocommerce'),
-		'CL319' => __('Pichidegua', 'woocommerce'),
-		'CL320' => __('Pichilemu', 'woocommerce'),
-		'CL321' => __('Pinto', 'woocommerce'),
-		'CL322' => __('Pirque', 'woocommerce'),
-		'CL323' => __('Pitrufquén', 'woocommerce'),
-		'CL324' => __('Placilla', 'woocommerce'),
-		'CL325' => __('Portezuelo', 'woocommerce'),
-		'CL326' => __('Porvenir', 'woocommerce'),
-		'CL327' => __('Pozo Almonte', 'woocommerce'),
-		'CL328' => __('Primavera', 'woocommerce'),
-		'CL329' => __('Providencia', 'woocommerce'),
-		'CL330' => __('Puchuncaví', 'woocommerce'),
-		'CL331' => __('Pucón', 'woocommerce'),
-		'CL332' => __('Pudahuel', 'woocommerce'),
-		'CL333' => __('Puente Alto', 'woocommerce'),
-		'CL334' => __('Puerto Montt', 'woocommerce'),
-		'CL335' => __('Puerto Octay', 'woocommerce'),
-		'CL336' => __('Puerto Varas', 'woocommerce'),
-		'CL337' => __('Pumanque', 'woocommerce'),
-		'CL338' => __('Punitaqui', 'woocommerce'),
-		'CL339' => __('Punta Arenas', 'woocommerce'),
-		'CL340' => __('Puqueldón', 'woocommerce'),
-		'CL341' => __('Purén', 'woocommerce'),
-		'CL342' => __('Purranque', 'woocommerce'),
-		'CL343' => __('Putaendo', 'woocommerce'),
-		'CL344' => __('Putre', 'woocommerce'),
-		'CL345' => __('Puyehue', 'woocommerce'),
-		'CL346' => __('Queilén', 'woocommerce'),
-		'CL347' => __('Quellón', 'woocommerce'),
-		'CL348' => __('Quemchi', 'woocommerce'),
-		'CL349' => __('Quilaco', 'woocommerce'),
-		'CL350' => __('Quilicura', 'woocommerce'),
-		'CL351' => __('Quilleco', 'woocommerce'),
-		'CL352' => __('Quillón', 'woocommerce'),
-		'CL353' => __('Quillota', 'woocommerce'),
-		'CL354' => __('Quilpué', 'woocommerce'),
-		'CL355' => __('Quinchao', 'woocommerce'),
-		'CL356' => __('Quinta de Tilcoco', 'woocommerce'),
-		'CL357' => __('Quinta Normal', 'woocommerce'),
-		'CL358' => __('Quintero', 'woocommerce'),
-		'CL359' => __('Quirihue', 'woocommerce'),
-		'CL360' => __('Rancagua', 'woocommerce'),
-		'CL361' => __('Ránquil', 'woocommerce'),
-		'CL362' => __('Rauco', 'woocommerce'),
-		'CL363' => __('Recoleta', 'woocommerce'),
-		'CL364' => __('Renaico', 'woocommerce'),
-		'CL365' => __('Renca', 'woocommerce'),
-		'CL366' => __('Rengo', 'woocommerce'),
-		'CL367' => __('Requínoa', 'woocommerce'),
-		'CL368' => __('Retiro', 'woocommerce'),
-		'CL369' => __('Rinconada', 'woocommerce'),
-		'CL370' => __('Río Bueno', 'woocommerce'),
-		'CL371' => __('Río Claro', 'woocommerce'),
-		'CL372' => __('Río Hurtado', 'woocommerce'),
-		'CL373' => __('Río Ibáñez', 'woocommerce'),
-		'CL374' => __('Río Negro', 'woocommerce'),
-		'CL375' => __('Río Verde', 'woocommerce'),
-		'CL376' => __('Romeral', 'woocommerce'),
-		'CL377' => __('Saavedra', 'woocommerce'),
-		'CL378' => __('Sagrada Familia', 'woocommerce'),
-		'CL379' => __('Salamanca', 'woocommerce'),
-		'CL380' => __('San Antonio', 'woocommerce'),
-		'CL381' => __('San Bernardo', 'woocommerce'),
-		'CL382' => __('San Carlos', 'woocommerce'),
-		'CL383' => __('San Clemente', 'woocommerce'),
-		'CL384' => __('San Esteban', 'woocommerce'),
-		'CL385' => __('San Fabián', 'woocommerce'),
-		'CL386' => __('San Felipe', 'woocommerce'),
-		'CL387' => __('San Fernando', 'woocommerce'),
-		'CL388' => __('San Gregorio', 'woocommerce'),
-		'CL389' => __('San Ignacio', 'woocommerce'),
-		'CL390' => __('San Javier', 'woocommerce'),
-		'CL391' => __('San Joaquín', 'woocommerce'),
-		'CL392' => __('San José de Maipo', 'woocommerce'),
-		'CL393' => __('San Juan de la Costa', 'woocommerce'),
-		'CL394' => __('San Miguel', 'woocommerce'),
-		'CL395' => __('San Nicolás', 'woocommerce'),
-		'CL396' => __('San Pablo', 'woocommerce'),
-		'CL397' => __('San Pedro', 'woocommerce'),
-		'CL398' => __('San Pedro de Atacama', 'woocommerce'),
-		'CL399' => __('San Pedro de la Paz', 'woocommerce'),
-		'CL400' => __('San Rafael', 'woocommerce'),
-		'CL401' => __('San Ramón', 'woocommerce'),
-		'CL402' => __('San Rosendo', 'woocommerce'),
-		'CL403' => __('San Vicente', 'woocommerce'),
-		'CL404' => __('Santa Bárbara', 'woocommerce'),
-		'CL405' => __('Santa Cruz', 'woocommerce'),
-		'CL406' => __('Santa Juana', 'woocommerce'),
-		'CL407' => __('Santa María', 'woocommerce'),
-		'CL408' => __('Santiago', 'woocommerce'),
-		'CL409' => __('Santo Domingo', 'woocommerce'),
-		'CL410' => __('Sierra Gorda', 'woocommerce'),
-		'CL411' => __('Talagante', 'woocommerce'),
-		'CL412' => __('Talca', 'woocommerce'),
-		'CL413' => __('Talcahuano', 'woocommerce'),
-		'CL414' => __('Taltal', 'woocommerce'),
-		'CL415' => __('Temuco', 'woocommerce'),
-		'CL416' => __('Teno', 'woocommerce'),
-		'CL417' => __('Teodoro Schmidt', 'woocommerce'),
-		'CL418' => __('Tierra Amarilla', 'woocommerce'),
-		'CL419' => __('Tiltil', 'woocommerce'),
-		'CL420' => __('Timaukel', 'woocommerce'),
-		'CL421' => __('Tirúa', 'woocommerce'),
-		'CL422' => __('Tocopilla', 'woocommerce'),
-		'CL423' => __('Toltén', 'woocommerce'),
-		'CL424' => __('Tomé', 'woocommerce'),
-		'CL425' => __('Torres del Paine', 'woocommerce'),
-		'CL426' => __('Tortel', 'woocommerce'),
-		'CL427' => __('Traiguén', 'woocommerce'),
-		'CL428' => __('Treguaco', 'woocommerce'),
-		'CL429' => __('Tucapel', 'woocommerce'),
-		'CL430' => __('Valdivia', 'woocommerce'),
-		'CL431' => __('Vallenar', 'woocommerce'),
-		'CL432' => __('Valparaíso', 'woocommerce'),
-		'CL433' => __('Vichuquén', 'woocommerce'),
-		'CL434' => __('Victoria', 'woocommerce'),
-		'CL435' => __('Vicuña', 'woocommerce'),
-		'CL436' => __('Vilcún', 'woocommerce'),
-		'CL437' => __('Villa Alegre', 'woocommerce'),
-		'CL438' => __('Villa Alemana', 'woocommerce'),
-		'CL439' => __('Villarrica', 'woocommerce'),
-		'CL440' => __('Viña del Mar', 'woocommerce'),
-		'CL441' => __('Vitacura', 'woocommerce'),
-		'CL442' => __('Yerbas Buenas', 'woocommerce'),
-		'CL443' => __('Yumbel', 'woocommerce'),
-		'CL444' => __('Yungay', 'woocommerce'),
-		'CL445' => __('Zapallar', 'woocommerce'),
-	);
-	return $states;
+	$states['CL'] = array(	//	Comunas of Chile Ref.:https://es.wikipedia.org/wiki/Anexo:Comunas_de_Chile.
+		'01101' => __( 'Iquique', 'woocommerce' ),
+		'01107' => __( 'Alto Hospicio', 'woocommerce' ),
+		'01401' => __( 'Pozo Almonte', 'woocommerce' ),
+		'01402' => __( 'Camiña', 'woocommerce' ),
+		'01403' => __( 'Colchane', 'woocommerce' ),
+		'01404' => __( 'Huara', 'woocommerce' ),
+		'01405' => __( 'Pica', 'woocommerce' ),
+		'02101' => __( 'Antofagasta', 'woocommerce' ),
+		'02102' => __( 'Mejillones', 'woocommerce' ),
+		'02103' => __( 'Sierra Gorda', 'woocommerce' ),
+		'02104' => __( 'Taltal', 'woocommerce' ),
+		'02201' => __( 'Calama', 'woocommerce' ),
+		'02202' => __( 'Ollagüe', 'woocommerce' ),
+		'02203' => __( 'San Pedro de Atacama', 'woocommerce' ),
+		'02301' => __( 'Tocopilla', 'woocommerce' ),
+		'02302' => __( 'María Elena', 'woocommerce' ),
+		'03101' => __( 'Copiapó', 'woocommerce' ),
+		'03102' => __( 'Caldera', 'woocommerce' ),
+		'03103' => __( 'Tierra Amarilla', 'woocommerce' ),
+		'03201' => __( 'Chañaral', 'woocommerce' ),
+		'03202' => __( 'Diego de Almagro', 'woocommerce' ),
+		'03301' => __( 'Vallenar', 'woocommerce' ),
+		'03302' => __( 'Alto del Carmen', 'woocommerce' ),
+		'03303' => __( 'Freirina', 'woocommerce' ),
+		'03304' => __( 'Huasco', 'woocommerce' ),
+		'04101' => __( 'La Serena', 'woocommerce' ),
+		'04102' => __( 'Coquimbo', 'woocommerce' ),
+		'04103' => __( 'Andacollo', 'woocommerce' ),
+		'04104' => __( 'La Higuera', 'woocommerce' ),
+		'04105' => __( 'Paihuano', 'woocommerce' ),
+		'04106' => __( 'Vicuña', 'woocommerce' ),
+		'04201' => __( 'Illapel', 'woocommerce' ),
+		'04202' => __( 'Canela', 'woocommerce' ),
+		'04203' => __( 'Los Vilos', 'woocommerce' ),
+		'04204' => __( 'Salamanca', 'woocommerce' ),
+		'04301' => __( 'Ovalle', 'woocommerce' ),
+		'04302' => __( 'Combarbalá', 'woocommerce' ),
+		'04303' => __( 'Monte Patria', 'woocommerce' ),
+		'04304' => __( 'Punitaqui', 'woocommerce' ),
+		'04305' => __( 'Río Hurtado', 'woocommerce' ),
+		'05101' => __( 'Valparaíso', 'woocommerce' ),
+		'05102' => __( 'Casablanca', 'woocommerce' ),
+		'05103' => __( 'Concón', 'woocommerce' ),
+		'05104' => __( 'Juan Fernández', 'woocommerce' ),
+		'05105' => __( 'Puchuncaví', 'woocommerce' ),
+		'05107' => __( 'Quintero', 'woocommerce' ),
+		'05109' => __( 'Viña del Mar', 'woocommerce' ),
+		'05201' => __( 'Isla de Pascua', 'woocommerce' ),
+		'05301' => __( 'Los Andes', 'woocommerce' ),
+		'05302' => __( 'Calle Larga', 'woocommerce' ),
+		'05303' => __( 'Rinconada', 'woocommerce' ),
+		'05304' => __( 'San Esteban', 'woocommerce' ),
+		'05401' => __( 'La Ligua', 'woocommerce' ),
+		'05402' => __( 'Cabildo', 'woocommerce' ),
+		'05403' => __( 'Papudo', 'woocommerce' ),
+		'05404' => __( 'Petorca', 'woocommerce' ),
+		'05405' => __( 'Zapallar', 'woocommerce' ),
+		'05501' => __( 'Quillota', 'woocommerce' ),
+		'05502' => __( 'La Calera', 'woocommerce' ),
+		'05503' => __( 'Hijuelas', 'woocommerce' ),
+		'05504' => __( 'La Cruz', 'woocommerce' ),
+		'05506' => __( 'Nogales', 'woocommerce' ),
+		'05601' => __( 'San Antonio', 'woocommerce' ),
+		'05602' => __( 'Algarrobo', 'woocommerce' ),
+		'05603' => __( 'Cartagena', 'woocommerce' ),
+		'05604' => __( 'El Quisco', 'woocommerce' ),
+		'05605' => __( 'El Tabo', 'woocommerce' ),
+		'05606' => __( 'Santo Domingo', 'woocommerce' ),
+		'05701' => __( 'San Felipe', 'woocommerce' ),
+		'05702' => __( 'Catemu', 'woocommerce' ),
+		'05703' => __( 'Llay-Llay', 'woocommerce' ),
+		'05704' => __( 'Panquehue', 'woocommerce' ),
+		'05705' => __( 'Putaendo', 'woocommerce' ),
+		'05706' => __( 'Santa María', 'woocommerce' ),
+		'05801' => __( 'Quilpué', 'woocommerce' ),
+		'05802' => __( 'Limache', 'woocommerce' ),
+		'05803' => __( 'Olmué', 'woocommerce' ),
+		'05804' => __( 'Villa Alemana', 'woocommerce' ),
+		'06101' => __( 'Rancagua', 'woocommerce' ),
+		'06102' => __( 'Codegua', 'woocommerce' ),
+		'06103' => __( 'Coinco', 'woocommerce' ),
+		'06104' => __( 'Coltauco', 'woocommerce' ),
+		'06105' => __( 'Doñihue', 'woocommerce' ),
+		'06106' => __( 'Graneros', 'woocommerce' ),
+		'06107' => __( 'Las Cabras', 'woocommerce' ),
+		'06108' => __( 'Machalí', 'woocommerce' ),
+		'06109' => __( 'Malloa', 'woocommerce' ),
+		'06110' => __( 'Mostazal', 'woocommerce' ),
+		'06111' => __( 'Olivar', 'woocommerce' ),
+		'06112' => __( 'Peumo', 'woocommerce' ),
+		'06113' => __( 'Pichidegua', 'woocommerce' ),
+		'06114' => __( 'Quinta de Tilcoco', 'woocommerce' ),
+		'06115' => __( 'Rengo', 'woocommerce' ),
+		'06116' => __( 'Requínoa', 'woocommerce' ),
+		'06117' => __( 'San Vicente', 'woocommerce' ),
+		'06201' => __( 'Pichilemu', 'woocommerce' ),
+		'06202' => __( 'La Estrella', 'woocommerce' ),
+		'06203' => __( 'Litueche', 'woocommerce' ),
+		'06204' => __( 'Marchihue', 'woocommerce' ),
+		'06205' => __( 'Navidad', 'woocommerce' ),
+		'06206' => __( 'Paredones', 'woocommerce' ),
+		'06301' => __( 'San Fernando', 'woocommerce' ),
+		'06302' => __( 'Chépica', 'woocommerce' ),
+		'06303' => __( 'Chimbarongo', 'woocommerce' ),
+		'06304' => __( 'Lolol', 'woocommerce' ),
+		'06305' => __( 'Nancagua', 'woocommerce' ),
+		'06306' => __( 'Palmilla', 'woocommerce' ),
+		'06307' => __( 'Peralillo', 'woocommerce' ),
+		'06308' => __( 'Placilla', 'woocommerce' ),
+		'06309' => __( 'Pumanque', 'woocommerce' ),
+		'06310' => __( 'Santa Cruz', 'woocommerce' ),
+		'07101' => __( 'Talca', 'woocommerce' ),
+		'07102' => __( 'Constitución', 'woocommerce' ),
+		'07103' => __( 'Curepto', 'woocommerce' ),
+		'07104' => __( 'Empedrado', 'woocommerce' ),
+		'07105' => __( 'Maule', 'woocommerce' ),
+		'07106' => __( 'Pelarco', 'woocommerce' ),
+		'07107' => __( 'Pencahue', 'woocommerce' ),
+		'07108' => __( 'Río Claro', 'woocommerce' ),
+		'07109' => __( 'San Clemente', 'woocommerce' ),
+		'07110' => __( 'San Rafael', 'woocommerce' ),
+		'07201' => __( 'Cauquenes', 'woocommerce' ),
+		'07202' => __( 'Chanco', 'woocommerce' ),
+		'07203' => __( 'Pelluhue', 'woocommerce' ),
+		'07301' => __( 'Curicó', 'woocommerce' ),
+		'07302' => __( 'Hualañé', 'woocommerce' ),
+		'07303' => __( 'Licantén', 'woocommerce' ),
+		'07304' => __( 'Molina', 'woocommerce' ),
+		'07305' => __( 'Rauco', 'woocommerce' ),
+		'07306' => __( 'Romeral', 'woocommerce' ),
+		'07307' => __( 'Sagrada Familia', 'woocommerce' ),
+		'07308' => __( 'Teno', 'woocommerce' ),
+		'07309' => __( 'Vichuquén', 'woocommerce' ),
+		'07401' => __( 'Linares', 'woocommerce' ),
+		'07402' => __( 'Colbún', 'woocommerce' ),
+		'07403' => __( 'Longaví', 'woocommerce' ),
+		'07404' => __( 'Parral', 'woocommerce' ),
+		'07405' => __( 'Retiro', 'woocommerce' ),
+		'07406' => __( 'San Javier', 'woocommerce' ),
+		'07407' => __( 'Villa Alegre', 'woocommerce' ),
+		'07408' => __( 'Yerbas Buenas', 'woocommerce' ),
+		'08101' => __( 'Concepción', 'woocommerce' ),
+		'08102' => __( 'Coronel', 'woocommerce' ),
+		'08103' => __( 'Chiguayante', 'woocommerce' ),
+		'08104' => __( 'Florida', 'woocommerce' ),
+		'08105' => __( 'Hualqui', 'woocommerce' ),
+		'08106' => __( 'Lota', 'woocommerce' ),
+		'08107' => __( 'Penco', 'woocommerce' ),
+		'08108' => __( 'San Pedro de La Paz', 'woocommerce' ),
+		'08109' => __( 'Santa Juana', 'woocommerce' ),
+		'08110' => __( 'Talcahuano', 'woocommerce' ),
+		'08111' => __( 'Tomé', 'woocommerce' ),
+		'08112' => __( 'Hualpén', 'woocommerce' ),
+		'08201' => __( 'Lebu', 'woocommerce' ),
+		'08202' => __( 'Arauco', 'woocommerce' ),
+		'08203' => __( 'Cañete', 'woocommerce' ),
+		'08204' => __( 'Contulmo', 'woocommerce' ),
+		'08205' => __( 'Curanilahue', 'woocommerce' ),
+		'08206' => __( 'Los Álamos', 'woocommerce' ),
+		'08207' => __( 'Tirúa', 'woocommerce' ),
+		'08301' => __( 'Los Ángeles', 'woocommerce' ),
+		'08302' => __( 'Antuco', 'woocommerce' ),
+		'08303' => __( 'Cabrero', 'woocommerce' ),
+		'08304' => __( 'Laja', 'woocommerce' ),
+		'08305' => __( 'Mulchén', 'woocommerce' ),
+		'08306' => __( 'Nacimiento', 'woocommerce' ),
+		'08307' => __( 'Negrete', 'woocommerce' ),
+		'08308' => __( 'Quilaco', 'woocommerce' ),
+		'08309' => __( 'Quilleco', 'woocommerce' ),
+		'08310' => __( 'San Rosendo', 'woocommerce' ),
+		'08311' => __( 'Santa Bárbara', 'woocommerce' ),
+		'08312' => __( 'Tucapel', 'woocommerce' ),
+		'08313' => __( 'Yumbel', 'woocommerce' ),
+		'08314' => __( 'Alto Biobío', 'woocommerce' ),
+		'09101' => __( 'Temuco', 'woocommerce' ),
+		'09102' => __( 'Carahue', 'woocommerce' ),
+		'09103' => __( 'Cunco', 'woocommerce' ),
+		'09104' => __( 'Curarrehue', 'woocommerce' ),
+		'09105' => __( 'Freire', 'woocommerce' ),
+		'09106' => __( 'Galvarino', 'woocommerce' ),
+		'09107' => __( 'Gorbea', 'woocommerce' ),
+		'09108' => __( 'Lautaro', 'woocommerce' ),
+		'09109' => __( 'Loncoche', 'woocommerce' ),
+		'09110' => __( 'Melipeuco', 'woocommerce' ),
+		'09111' => __( 'Nueva Imperial', 'woocommerce' ),
+		'09112' => __( 'Padre Las Casas', 'woocommerce' ),
+		'09113' => __( 'Perquenco', 'woocommerce' ),
+		'09114' => __( 'Pitrufquén', 'woocommerce' ),
+		'09115' => __( 'Pucón', 'woocommerce' ),
+		'09116' => __( 'Saavedra', 'woocommerce' ),
+		'09117' => __( 'Teodoro Schmidt', 'woocommerce' ),
+		'09118' => __( 'Toltén', 'woocommerce' ),
+		'09119' => __( 'Vilcún', 'woocommerce' ),
+		'09120' => __( 'Villarrica', 'woocommerce' ),
+		'09121' => __( 'Cholchol', 'woocommerce' ),
+		'09201' => __( 'Angol', 'woocommerce' ),
+		'09202' => __( 'Collipulli', 'woocommerce' ),
+		'09203' => __( 'Curacautín', 'woocommerce' ),
+		'09204' => __( 'Ercilla', 'woocommerce' ),
+		'09205' => __( 'Lonquimay', 'woocommerce' ),
+		'09206' => __( 'Los Sauces', 'woocommerce' ),
+		'09207' => __( 'Lumaco', 'woocommerce' ),
+		'09208' => __( 'Purén', 'woocommerce' ),
+		'09209' => __( 'Renaico', 'woocommerce' ),
+		'09210' => __( 'Traiguén', 'woocommerce' ),
+		'09211' => __( 'Victoria', 'woocommerce' ),
+		'10101' => __( 'Puerto Montt', 'woocommerce' ),
+		'10102' => __( 'Calbuco', 'woocommerce' ),
+		'10103' => __( 'Cochamó', 'woocommerce' ),
+		'10104' => __( 'Fresia', 'woocommerce' ),
+		'10105' => __( 'Frutillar', 'woocommerce' ),
+		'10106' => __( 'Los Muermos', 'woocommerce' ),
+		'10107' => __( 'Llanquihue', 'woocommerce' ),
+		'10108' => __( 'Maullín', 'woocommerce' ),
+		'10109' => __( 'Puerto Varas', 'woocommerce' ),
+		'10201' => __( 'Castro', 'woocommerce' ),
+		'10202' => __( 'Ancud', 'woocommerce' ),
+		'10203' => __( 'Chonchi', 'woocommerce' ),
+		'10204' => __( 'Curaco de Vélez', 'woocommerce' ),
+		'10205' => __( 'Dalcahue', 'woocommerce' ),
+		'10206' => __( 'Puqueldón', 'woocommerce' ),
+		'10207' => __( 'Queilén', 'woocommerce' ),
+		'10208' => __( 'Quellón', 'woocommerce' ),
+		'10209' => __( 'Quemchi', 'woocommerce' ),
+		'10210' => __( 'Quinchao', 'woocommerce' ),
+		'10301' => __( 'Osorno', 'woocommerce' ),
+		'10302' => __( 'Puerto Octay', 'woocommerce' ),
+		'10303' => __( 'Purranque', 'woocommerce' ),
+		'10304' => __( 'Puyehue', 'woocommerce' ),
+		'10305' => __( 'Río Negro', 'woocommerce' ),
+		'10306' => __( 'San Juan de la Costa', 'woocommerce' ),
+		'10307' => __( 'San Pablo', 'woocommerce' ),
+		'10401' => __( 'Chaitén', 'woocommerce' ),
+		'10402' => __( 'Futaleufú', 'woocommerce' ),
+		'10403' => __( 'Hualaihué', 'woocommerce' ),
+		'10404' => __( 'Palena', 'woocommerce' ),
+		'11101' => __( 'Coyhaique', 'woocommerce' ),
+		'11102' => __( 'Lago Verde', 'woocommerce' ),
+		'11201' => __( 'Aysén', 'woocommerce' ),
+		'11202' => __( 'Cisnes', 'woocommerce' ),
+		'11203' => __( 'Guaitecas', 'woocommerce' ),
+		'11301' => __( 'Cochrane', 'woocommerce' ),
+		'11302' => __( "O'Higgins", 'woocommerce' ),
+		'11303' => __( 'Tortel', 'woocommerce' ),
+		'11401' => __( 'Chile Chico', 'woocommerce' ),
+		'11402' => __( 'Río Ibáñez', 'woocommerce' ),
+		'12101' => __( 'Punta Arenas', 'woocommerce' ),
+		'12102' => __( 'Laguna Blanca', 'woocommerce' ),
+		'12103' => __( 'Río Verde', 'woocommerce' ),
+		'12104' => __( 'San Gregorio', 'woocommerce' ),
+		'12201' => __( 'Cabo de Hornos', 'woocommerce' ),
+		'12202' => __( 'Antártica', 'woocommerce' ),
+		'12301' => __( 'Porvenir', 'woocommerce' ),
+		'12302' => __( 'Primavera', 'woocommerce' ),
+		'12303' => __( 'Timaukel', 'woocommerce' ),
+		'12401' => __( 'Natales', 'woocommerce' ),
+		'12402' => __( 'Torres del Paine', 'woocommerce' ),
+		'13101' => __( 'Santiago', 'woocommerce' ),
+		'13102' => __( 'Cerrillos', 'woocommerce' ),
+		'13103' => __( 'Cerro Navia', 'woocommerce' ),
+		'13104' => __( 'Conchalí', 'woocommerce' ),
+		'13105' => __( 'El Bosque', 'woocommerce' ),
+		'13106' => __( 'Estación Central', 'woocommerce' ),
+		'13107' => __( 'Huechuraba', 'woocommerce' ),
+		'13108' => __( 'Independencia', 'woocommerce' ),
+		'13109' => __( 'La Cisterna', 'woocommerce' ),
+		'13110' => __( 'La Florida', 'woocommerce' ),
+		'13111' => __( 'La Granja', 'woocommerce' ),
+		'13112' => __( 'La Pintana', 'woocommerce' ),
+		'13113' => __( 'La Reina', 'woocommerce' ),
+		'13114' => __( 'Las Condes', 'woocommerce' ),
+		'13115' => __( 'Lo Barnechea', 'woocommerce' ),
+		'13116' => __( 'Lo Espejo', 'woocommerce' ),
+		'13117' => __( 'Lo Prado', 'woocommerce' ),
+		'13118' => __( 'Macul', 'woocommerce' ),
+		'13119' => __( 'Maipú', 'woocommerce' ),
+		'13120' => __( 'Ñuñoa', 'woocommerce' ),
+		'13121' => __( 'Pedro Aguirre Cerda', 'woocommerce' ),
+		'13122' => __( 'Peñalolén', 'woocommerce' ),
+		'13123' => __( 'Providencia', 'woocommerce' ),
+		'13124' => __( 'Pudahuel', 'woocommerce' ),
+		'13125' => __( 'Quilicura', 'woocommerce' ),
+		'13126' => __( 'Quinta Normal', 'woocommerce' ),
+		'13127' => __( 'Recoleta', 'woocommerce' ),
+		'13128' => __( 'Renca', 'woocommerce' ),
+		'13129' => __( 'San Joaquín', 'woocommerce' ),
+		'13130' => __( 'San Miguel', 'woocommerce' ),
+		'13131' => __( 'San Ramón', 'woocommerce' ),
+		'13132' => __( 'Vitacura', 'woocommerce' ),
+		'13201' => __( 'Puente Alto', 'woocommerce' ),
+		'13202' => __( 'Pirque', 'woocommerce' ),
+		'13203' => __( 'San José de Maipo', 'woocommerce' ),
+		'13301' => __( 'Colina', 'woocommerce' ),
+		'13302' => __( 'Lampa', 'woocommerce' ),
+		'13303' => __( 'Til Til', 'woocommerce' ),
+		'13401' => __( 'San Bernardo', 'woocommerce' ),
+		'13402' => __( 'Buin', 'woocommerce' ),
+		'13403' => __( 'Calera de Tango', 'woocommerce' ),
+		'13404' => __( 'Paine', 'woocommerce' ),
+		'13501' => __( 'Melipilla', 'woocommerce' ),
+		'13502' => __( 'Alhué', 'woocommerce' ),
+		'13503' => __( 'Curacaví', 'woocommerce' ),
+		'13504' => __( 'María Pinto', 'woocommerce' ),
+		'13505' => __( 'San Pedro', 'woocommerce' ),
+		'13601' => __( 'Talagante', 'woocommerce' ),
+		'13602' => __( 'El Monte', 'woocommerce' ),
+		'13603' => __( 'Isla de Maipo', 'woocommerce' ),
+		'13604' => __( 'Padre Hurtado', 'woocommerce' ),
+		'13605' => __( 'Peñaflor', 'woocommerce' ),
+		'14101' => __( 'Valdivia', 'woocommerce' ),
+		'14102' => __( 'Corral', 'woocommerce' ),
+		'14103' => __( 'Lanco', 'woocommerce' ),
+		'14104' => __( 'Los Lagos', 'woocommerce' ),
+		'14105' => __( 'Máfil', 'woocommerce' ),
+		'14106' => __( 'Mariquina', 'woocommerce' ),
+		'14107' => __( 'Paillaco', 'woocommerce' ),
+		'14108' => __( 'Panguipulli', 'woocommerce' ),
+		'14201' => __( 'La Unión', 'woocommerce' ),
+		'14202' => __( 'Futrono', 'woocommerce' ),
+		'14203' => __( 'Lago Ranco', 'woocommerce' ),
+		'14204' => __( 'Río Bueno', 'woocommerce' ),
+		'15101' => __( 'Arica', 'woocommerce' ),
+		'15102' => __( 'Camarones', 'woocommerce' ),
+		'15201' => __( 'Putre', 'woocommerce' ),
+		'15202' => __( 'General Lagos', 'woocommerce' ),
+		'16101' => __( 'Chillán', 'woocommerce' ),
+		'16102' => __( 'Bulnes', 'woocommerce' ),
+		'16103' => __( 'Chillán Viejo', 'woocommerce' ),
+		'16104' => __( 'El Carmen', 'woocommerce' ),
+		'16105' => __( 'Pemuco', 'woocommerce' ),
+		'16106' => __( 'Pinto', 'woocommerce' ),
+		'16107' => __( 'Quillón', 'woocommerce' ),
+		'16108' => __( 'San Ignacio', 'woocommerce' ),
+		'16109' => __( 'Yungay', 'woocommerce' ),
+		'16201' => __( 'Quirihue', 'woocommerce' ),
+		'16202' => __( 'Cobquecura', 'woocommerce' ),
+		'16203' => __( 'Coelemu', 'woocommerce' ),
+		'16204' => __( 'Ninhue', 'woocommerce' ),
+		'16205' => __( 'Portezuelo', 'woocommerce' ),
+		'16206' => __( 'Ránquil', 'woocommerce' ),
+		'16207' => __( 'Treguaco', 'woocommerce' ),
+		'16301' => __( 'San Carlos', 'woocommerce' ),
+		'16302' => __( 'Coihueco', 'woocommerce' ),
+		'16303' => __( 'Ñiquén', 'woocommerce' ),
+		'16304' => __( 'San Fabián', 'woocommerce' ),
+		'16305' => __( 'San Nicolás', 'woocommerce' ),
+	),		
+);
+return $states;
 }
