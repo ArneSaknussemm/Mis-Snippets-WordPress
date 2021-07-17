@@ -521,7 +521,7 @@ function comunas_de_chile($states) {
 		'16303' => __( 'Ñiquén', 'woocommerce' ),
 		'16304' => __( 'San Fabián', 'woocommerce' ),
 		'16305' => __( 'San Nicolás', 'woocommerce' ),
-	),		
+	)		
 );
 return $states;
 }
